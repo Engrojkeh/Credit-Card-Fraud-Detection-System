@@ -1,7 +1,7 @@
 {
   "name": "fraud-detection-server",
-  "version": "1.0.0",
-  "description": "Node.js Backend for Credit Card Fraud Detection",
+  "version": "2.0.0",
+  "description": "Enterprise Node.js Backend for Credit Card Fraud Detection with JWT, Helmet, Rate-Limiting & PostgreSQL",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -12,6 +12,12 @@
     "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
     "express": "^4.19.2",
-    "multer": "^1.4.5-lts.1"
+    "express-rate-limit": "^7.2.0",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.5",
+    "uuid": "^9.0.0"
   }
 }

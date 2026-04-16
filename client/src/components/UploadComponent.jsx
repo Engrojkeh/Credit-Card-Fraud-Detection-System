@@ -4,7 +4,7 @@ import { UploadCloud } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const UploadComponent = ({ onBatchUpload }) => {
+const UploadComponent = ({ onBatchUpload, token }) => {
   const fileInputRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
   const [stats, setStats] = useState(null);
@@ -25,9 +25,12 @@ const UploadComponent = ({ onBatchUpload }) => {
     formData.append('file', file);
 
     try {
-      // POST to Node.js backend
+      // POST to Node.js backend with JWT Authorization header
       const res = await axios.post(`${API_URL}/upload-csv`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
+        }
       });
 
       const data = res.data;
@@ -39,17 +42,22 @@ const UploadComponent = ({ onBatchUpload }) => {
 
       // Pass the flagged transactions back to App for rendering
       onBatchUpload(data.flaggedTransactions.map((tx, idx) => ({
-          id: `BATCH-${idx}`,
+          id: tx.transaction_id || `BATCH-${idx}`,
           time: tx.Time || tx.time,
           amount: tx.Amount || tx.amount,
           isFraud: tx.isFraud,
           riskScore: tx.riskScore,
+          status: tx.status,
           method: 'CSV Batch'
       })));
 
     } catch (err) {
       console.error(err);
-      alert('Error uploading CSV. Is the backend running?');
+      if (err.response && err.response.status === 401) {
+        alert('Session expired. Please log in again.');
+      } else {
+        alert('Error uploading CSV. Is the backend running?');
+      }
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';

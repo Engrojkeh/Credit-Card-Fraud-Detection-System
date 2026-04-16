@@ -4,7 +4,7 @@ import { CreditCard, Activity, Shield } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const TransactionTerminal = ({ onSimulate }) => {
+const TransactionTerminal = ({ onSimulate, token }) => {
   const [formData, setFormData] = useState({
     cardholder: '',
     cardNumber: '',
@@ -35,41 +35,55 @@ const TransactionTerminal = ({ onSimulate }) => {
 
     const payload = {
       amount: parseFloat(formData.amount),
-      time: Math.floor(Math.random() * 170000)
+      time: Math.floor(Math.random() * 170000),
+      cardLastFour: formData.cardNumber.replace(/\s/g, '').slice(-4),
+      merchant: formData.merchant || 'Unknown Merchant'
     };
 
     // Inject mock PCA vectors for Kaggle AI format
-    for(let i=1; i<=28; i++) {
-        payload[`v${i}`] = (Math.random() * 2 - 1).toFixed(3); 
+    for (let i = 1; i <= 28; i++) {
+      payload[`v${i}`] = (Math.random() * 2 - 1).toFixed(3);
     }
 
     try {
-      const response = await axios.post(`${API_URL}/scan-transaction`, payload);
+      const response = await axios.post(`${API_URL}/scan-transaction`, payload, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
       const resData = response.data;
-      
+
       onSimulate({
-        id: `TXN-${Math.floor(Math.random()*100000)}`,
+        id: resData.transaction_id,
         time: payload.time,
         amount: payload.amount,
         cardNumber: formData.cardNumber,
         merchant: formData.merchant || 'Unknown Merchant',
         isFraud: resData.isFraud,
         riskScore: resData.riskScore,
+        status: resData.status,
         method: 'Point of Sale'
       });
 
     } catch (err) {
-        console.error(err);
+      console.error(err);
+      if (err.response && err.response.status === 401) {
+        alert('Session expired. Please log in again.');
+      } else if (err.response && err.response.status === 422) {
+        alert('Input validation failed. Please check the values.');
+      } else {
         alert('API is offline. Check backend status.');
+      }
     } finally {
-        setIsSimulating(false);
-        setFormData({ ...formData, amount: '', merchant: '' }); // reset amount
+      setIsSimulating(false);
+      setFormData({ ...formData, amount: '', merchant: '' });
     }
   };
 
   return (
     <div className="card" style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 1fr', gap: '32px' }}>
-      
+
       {/* Left: The Virtual Credit Card Visual */}
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{
@@ -84,7 +98,7 @@ const TransactionTerminal = ({ onSimulate }) => {
         }}>
           {/* Card Chip */}
           <div style={{ width: '45px', height: '35px', background: 'linear-gradient(135deg, #fbbf24 0%, #d97706 100%)', borderRadius: '6px', marginBottom: '24px' }}></div>
-          
+
           <div style={{ fontFamily: 'monospace', fontSize: '1.4rem', letterSpacing: '2px', color: '#f8fafc', textShadow: '0 2px 4px rgba(0,0,0,0.5)', marginBottom: '24px' }}>
             {formData.cardNumber || '**** **** **** ****'}
           </div>
@@ -99,8 +113,8 @@ const TransactionTerminal = ({ onSimulate }) => {
               <div style={{ color: '#f8fafc', fontSize: '0.9rem' }}>{formData.expiry || 'MM/YY'}</div>
             </div>
           </div>
-          
-          <Shield size={120} color="#334155" style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.3 }}/>
+
+          <Shield size={120} color="#334155" style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.3 }} />
         </div>
       </div>
 
@@ -114,7 +128,7 @@ const TransactionTerminal = ({ onSimulate }) => {
         </p>
 
         <form onSubmit={executeSimulation} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          
+
           <div className="input-grid">
             <div className="input-group">
               <label>Cardholder Name</label>
@@ -129,13 +143,13 @@ const TransactionTerminal = ({ onSimulate }) => {
           <div className="input-group">
             <label>Card Number</label>
             <div style={{ position: 'relative' }}>
-              <CreditCard size={18} color="var(--text-secondary)" style={{ position: 'absolute', left: '12px', top: '12px' }}/>
+              <CreditCard size={18} color="var(--text-secondary)" style={{ position: 'absolute', left: '12px', top: '12px' }} />
               <input type="text" name="cardNumber" className="input-field" placeholder="0000 0000 0000 0000" style={{ paddingLeft: '40px' }} value={formData.cardNumber} onChange={handleInputChange} maxLength="19" />
             </div>
           </div>
 
           <div className="input-grid">
-             <div className="input-group">
+            <div className="input-group">
               <label>Expiry (MM/YY)</label>
               <input type="text" name="expiry" className="input-field" placeholder="12/25" value={formData.expiry} onChange={handleInputChange} maxLength="5" />
             </div>
@@ -150,9 +164,9 @@ const TransactionTerminal = ({ onSimulate }) => {
           <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end' }}>
             <div className="input-group" style={{ flex: 1 }}>
               <label>Transaction Amount (₦)</label>
-              <input type="number" name="amount" className="input-field" placeholder="e.g. 500.00" value={formData.amount} onChange={handleInputChange} style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#10b981' }}/>
+              <input type="number" name="amount" className="input-field" placeholder="e.g. 500.00" value={formData.amount} onChange={handleInputChange} style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#10b981' }} />
             </div>
-            
+
             <button type="submit" className="btn" disabled={isSimulating} style={{ padding: '12px 24px', fontSize: '1rem' }}>
               {isSimulating ? 'Processing...' : 'Process Payment'}
             </button>
