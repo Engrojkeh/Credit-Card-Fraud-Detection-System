@@ -55,13 +55,13 @@ function App() {
     <>
       <nav className="navbar">
         <div className="brand">
-          <ShieldCheck size={28} color="#58a6ff" />
+          <ShieldCheck size={28} color="#8aab9e" />
           Aegis Fraud Detection Core
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#8b949e', fontSize: '0.85rem' }}>
             <Server size={16}/>
-            <span style={{ color: '#58a6ff', fontWeight: 600 }}>{currentUser?.username}</span>
+            <span style={{ color: '#8aab9e', fontWeight: 600 }}>{currentUser?.username}</span>
             &bull; Administrator
           </div>
           <button

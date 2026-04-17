@@ -87,8 +87,8 @@ const TransactionTerminal = ({ onSimulate, token }) => {
       {/* Left: The Virtual Credit Card Visual */}
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{
-          background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-          border: '1px solid #334155',
+          background: 'linear-gradient(135deg, var(--prussian-light) 0%, var(--prussian-mid) 100%)',
+          border: '1px solid var(--border-color)',
           borderRadius: '16px',
           padding: '24px',
           boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
@@ -114,14 +114,14 @@ const TransactionTerminal = ({ onSimulate, token }) => {
             </div>
           </div>
 
-          <Shield size={120} color="#334155" style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.3 }} />
+          <Shield size={120} color="var(--border-color)" style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.5 }} />
         </div>
       </div>
 
       {/* Right: The POS Form */}
       <div>
         <h2 style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.2rem', marginBottom: '8px' }}>
-          <Activity size={20} color="#58a6ff" /> Virtual POS Terminal
+          <Activity size={20} color="var(--teal-bright)" /> Virtual POS Terminal
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '24px' }}>
           Simulate a real-time swipe. The engine will extract the anomaly vectors and score the transaction risk instantly.
@@ -164,7 +164,7 @@ const TransactionTerminal = ({ onSimulate, token }) => {
           <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end' }}>
             <div className="input-group" style={{ flex: 1 }}>
               <label>Transaction Amount (₦)</label>
-              <input type="number" name="amount" className="input-field" placeholder="e.g. 500.00" value={formData.amount} onChange={handleInputChange} style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#10b981' }} />
+              <input type="number" name="amount" className="input-field" placeholder="e.g. 500.00" value={formData.amount} onChange={handleInputChange} style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--success)' }} />
             </div>
 
             <button type="submit" className="btn" disabled={isSimulating} style={{ padding: '12px 24px', fontSize: '1rem' }}>

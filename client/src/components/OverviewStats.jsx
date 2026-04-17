@@ -13,14 +13,14 @@ const OverviewStats = ({ transactions }) => {
       
       {/* Total Scanned */}
       <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px' }}>
-        <div style={{ background: 'rgba(88, 166, 255, 0.1)', padding: '16px', borderRadius: '12px' }}>
-          <ActivitySquare size={28} color="#58a6ff" />
+        <div style={{ background: 'rgba(112, 141, 129, 0.12)', padding: '16px', borderRadius: '12px' }}>
+          <ActivitySquare size={28} color="var(--teal-bright)" />
         </div>
         <div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Transactions Scanned
           </div>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: '#fff', marginTop: '4px' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: '#e8f0ec', marginTop: '4px' }}>
             {totalScanned}
           </div>
         </div>
@@ -28,14 +28,14 @@ const OverviewStats = ({ transactions }) => {
 
       {/* Fraud Prevented */}
       <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px' }}>
-        <div style={{ background: 'var(--danger-bg)', padding: '16px', borderRadius: '12px', boxShadow: '0 0 15px rgba(248, 81, 73, 0.2)' }}>
+        <div style={{ background: 'var(--danger-bg)', padding: '16px', borderRadius: '12px', boxShadow: '0 0 20px rgba(248, 81, 73, 0.15)' }}>
           <ShieldAlert size={28} color="var(--danger)" />
         </div>
         <div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Fraud Stopped
           </div>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: '#fff', marginTop: '4px' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: '#e8f0ec', marginTop: '4px' }}>
             {totalFraud}
           </div>
         </div>
@@ -47,10 +47,10 @@ const OverviewStats = ({ transactions }) => {
           <BadgeDollarSign size={28} color="var(--success)" />
         </div>
         <div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Total Money Saved
           </div>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: '#10b981', marginTop: '4px' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--success)', marginTop: '4px' }}>
             ₦{moneySaved.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
         </div>

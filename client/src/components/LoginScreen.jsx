@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { ShieldCheck, Lock, User, AlertCircle, Loader2 } from 'lucide-react';
+import { ShieldCheck, Lock, User, AlertCircle, Loader2, Fingerprint } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
@@ -18,11 +18,8 @@ const LoginScreen = ({ onLoginSuccess }) => {
     try {
       const response = await axios.post(`${API_URL}/login`, { username, password });
       const { token, user } = response.data;
-
-      // Store the JWT in localStorage
       localStorage.setItem('aegis_token', token);
       localStorage.setItem('aegis_user', JSON.stringify(user));
-
       onLoginSuccess(token, user);
     } catch (err) {
       if (err.response && err.response.status === 401) {
@@ -36,56 +33,70 @@ const LoginScreen = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%)',
-      padding: '20px'
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '420px',
-        background: 'var(--panel-bg)',
-        border: '1px solid var(--border-color)',
-        borderRadius: '16px',
-        padding: '40px',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
-      }}>
+    <div className="login-page">
+      {/* Animated Background Elements */}
+      <div className="login-bg-grid"></div>
+      <div className="login-bg-orbs">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="orb orb-3"></div>
+        <div className="orb orb-4"></div>
+      </div>
+
+      {/* Floating Data Particles */}
+      <div className="particles">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${6 + Math.random() * 8}s`,
+              opacity: 0.1 + Math.random() * 0.3
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Scanning Line Animation */}
+      <div className="scan-line"></div>
+
+      {/* Login Card */}
+      <div className="login-card">
+        {/* Glowing Top Border */}
+        <div className="login-card-glow"></div>
+
         {/* Logo Area */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{
-            width: '64px',
-            height: '64px',
-            borderRadius: '16px',
-            background: 'linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 16px',
-            boxShadow: '0 8px 24px rgba(88, 166, 255, 0.3)'
-          }}>
+          <div className="login-logo">
+            <div className="login-logo-ring"></div>
             <ShieldCheck size={32} color="#fff" />
           </div>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
+
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: '#fff', marginBottom: '6px', letterSpacing: '-0.02em' }}>
             Aegis Fraud Detection
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+          <p style={{ color: '#708D81', fontSize: '0.85rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
             Administrator Authentication Required
           </p>
         </div>
 
+        {/* Biometric Decoration */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', padding: '12px 16px', background: 'rgba(112, 141, 129, 0.08)', borderRadius: '10px', border: '1px solid rgba(112, 141, 129, 0.15)' }}>
+          <Fingerprint size={20} color="#708D81" />
+          <span style={{ color: '#708D81', fontSize: '0.8rem' }}>Secure multi-factor session. All access is logged and monitored.</span>
+        </div>
+
         {/* Login Form */}
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          
-          <div className="input-group">
-            <label style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <User size={14} /> Username
+
+          <div className="login-input-group">
+            <label>
+              <User size={13} /> Username
             </label>
             <input
               type="text"
-              className="input-field"
               placeholder="Enter admin username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -94,13 +105,12 @@ const LoginScreen = ({ onLoginSuccess }) => {
             />
           </div>
 
-          <div className="input-group">
-            <label style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Lock size={14} /> Password
+          <div className="login-input-group">
+            <label>
+              <Lock size={13} /> Password
             </label>
             <input
               type="password"
-              className="input-field"
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -109,36 +119,13 @@ const LoginScreen = ({ onLoginSuccess }) => {
           </div>
 
           {error && (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '12px',
-              background: 'var(--danger-bg)',
-              border: '1px solid rgba(248, 81, 73, 0.3)',
-              borderRadius: '8px',
-              color: 'var(--danger)',
-              fontSize: '0.85rem'
-            }}>
+            <div className="login-error">
               <AlertCircle size={16} />
               {error}
             </div>
           )}
 
-          <button
-            type="submit"
-            className="btn"
-            disabled={isLoading}
-            style={{
-              width: '100%',
-              padding: '14px',
-              fontSize: '1rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px'
-            }}
-          >
+          <button type="submit" className="login-btn" disabled={isLoading}>
             {isLoading ? (
               <><Loader2 size={18} className="spin" /> Authenticating...</>
             ) : (
@@ -149,14 +136,16 @@ const LoginScreen = ({ onLoginSuccess }) => {
 
         {/* Footer */}
         <div style={{
-          marginTop: '24px',
+          marginTop: '28px',
           paddingTop: '20px',
-          borderTop: '1px solid var(--border-color)',
+          borderTop: '1px solid rgba(112, 141, 129, 0.15)',
           textAlign: 'center',
-          color: 'var(--text-secondary)',
-          fontSize: '0.75rem'
+          color: 'rgba(112, 141, 129, 0.6)',
+          fontSize: '0.7rem',
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase'
         }}>
-          Protected by JWT Authentication &bull; Helmet &bull; Rate-Limited API
+          Protected by JWT &bull; Helmet &bull; Rate-Limited API &bull; TFjs-SMOTE v2.1
         </div>
       </div>
     </div>

@@ -48,7 +48,7 @@ const DataTable = ({ transactions }) => {
                 <CreditCard size={14} /> 
                 {maskCard(tx.cardNumber)}
               </td>
-              <td style={{ fontFamily: 'monospace', color: '#58a6ff' }}>
+              <td style={{ fontFamily: 'monospace', color: 'var(--teal-bright)' }}>
                 {tx.merchant ? tx.merchant : tx.id}
               </td>
               <td style={{ fontWeight: 600 }}>
