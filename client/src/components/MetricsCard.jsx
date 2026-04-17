@@ -3,8 +3,8 @@ import { BrainCircuit } from 'lucide-react';
 
 const MetricsCard = () => {
   return (
-    <div className="card" style={{ background: 'linear-gradient(145deg, var(--prussian-light) 0%, var(--prussian) 100%)' }}>
-      <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--teal-bright)' }}>
+    <div className="card" style={{ background: 'linear-gradient(145deg, var(--obsidian-light) 0%, var(--obsidian) 100%)' }}>
+      <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--cyan-bright)' }}>
         <BrainCircuit size={20} /> AI Model Performance
       </h3>
       

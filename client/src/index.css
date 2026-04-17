@@ -1,29 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* ── Prussian Blue & Deep Teal Palette ── */
-  --prussian:       #001427;
-  --prussian-mid:   #011d38;
-  --prussian-light: #02284d;
-  --teal:           #708D81;
-  --teal-bright:    #8aab9e;
-  --teal-dim:       #4a6b60;
+  /* ── Obsidian & Cyber Cyan Palette ── */
+  --obsidian:       #0B0E14;
+  --obsidian-mid:   #151A22;
+  --obsidian-light: #1E2532;
+  --cyan:           #00E5FF;
+  --cyan-bright:    #84FFFF;
+  --cyan-dim:       #00B8D4;
+  --purple:         #B388FF;
 
   /* ── Mapped Design Tokens ── */
-  --bg-color:       #011a30;
-  --panel-bg:       rgba(1, 26, 48, 0.75);
-  --panel-solid:    #012240;
-  --panel-hover:    #013058;
-  --border-color:   rgba(112, 141, 129, 0.18);
-  --text-primary:   #d4e0da;
-  --text-secondary: #708D81;
-  --accent-color:   #708D81;
-  --accent-hover:   #8aab9e;
-  --danger:         #f85149;
-  --danger-bg:      rgba(248, 81, 73, 0.1);
-  --success:        #4ade80;
-  --success-bg:     rgba(74, 222, 128, 0.1);
-  --glass-bg:       rgba(1, 20, 39, 0.8);
+  --bg-color:       #0B0E14;
+  --panel-bg:       rgba(21, 26, 34, 0.75);
+  --panel-solid:    #151A22;
+  --panel-hover:    #1E2532;
+  --border-color:   rgba(0, 229, 255, 0.15);
+  --text-primary:   #ECEFF1;
+  --text-secondary: #90A4AE;
+  --accent-color:   #00E5FF;
+  --accent-hover:   #84FFFF;
+  --danger:         #FF1744;
+  --danger-bg:      rgba(255, 23, 68, 0.1);
+  --success:        #00E676;
+  --success-bg:     rgba(0, 230, 118, 0.1);
+  --glass-bg:       rgba(11, 14, 20, 0.85);
 }
 
 body {

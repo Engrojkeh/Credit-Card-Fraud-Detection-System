@@ -14,7 +14,7 @@ const OverviewStats = ({ transactions }) => {
       {/* Total Scanned */}
       <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px' }}>
         <div style={{ background: 'rgba(112, 141, 129, 0.12)', padding: '16px', borderRadius: '12px' }}>
-          <ActivitySquare size={28} color="var(--teal-bright)" />
+          <ActivitySquare size={28} color="var(--cyan-bright)" />
         </div>
         <div>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
