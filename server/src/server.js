@@ -24,7 +24,25 @@ const MODEL_VERSION = 'TFjs-SMOTE-v2.1';
 //  1. SECURITY MIDDLEWARE (Helmet + Rate Limiter)
 // ──────────────────────────────────────────────────────────
 app.use(helmet());                            // Masks server fingerprint headers
-app.use(cors());
+
+// CORS: Allow localhost in dev and any *.vercel.app domain in production
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    /^https:\/\/.*\.vercel\.app$/
+];
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow requests with no origin (server-to-server, curl, Postman)
+        if (!origin) return callback(null, true);
+        const isAllowed = allowedOrigins.some(o =>
+            typeof o === 'string' ? o === origin : o.test(origin)
+        );
+        if (isAllowed) return callback(null, true);
+        callback(new Error(`CORS policy: origin ${origin} is not allowed.`));
+    },
+    credentials: true
+}));
 app.use(express.json());
 
 const apiLimiter = rateLimit({

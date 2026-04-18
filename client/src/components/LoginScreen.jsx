@@ -77,15 +77,15 @@ const LoginScreen = ({ onLoginSuccess }) => {
           <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: '#fff', marginBottom: '6px', letterSpacing: '-0.02em' }}>
             Aegis Fraud Detection
           </h1>
-          <p style={{ color: '#708D81', fontSize: '0.85rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
             Administrator Authentication Required
           </p>
         </div>
 
         {/* Biometric Decoration */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', padding: '12px 16px', background: 'rgba(112, 141, 129, 0.08)', borderRadius: '10px', border: '1px solid rgba(112, 141, 129, 0.15)' }}>
-          <Fingerprint size={20} color="#708D81" />
-          <span style={{ color: '#708D81', fontSize: '0.8rem' }}>Secure multi-factor session. All access is logged and monitored.</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', padding: '12px 16px', background: 'var(--panel-bg)', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
+          <Fingerprint size={20} color="var(--cyan)" />
+          <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Secure multi-factor session. All access is logged and monitored.</span>
         </div>
 
         {/* Login Form */}
@@ -138,9 +138,9 @@ const LoginScreen = ({ onLoginSuccess }) => {
         <div style={{
           marginTop: '28px',
           paddingTop: '20px',
-          borderTop: '1px solid rgba(112, 141, 129, 0.15)',
+          borderTop: '1px solid var(--border-color)',
           textAlign: 'center',
-          color: 'rgba(112, 141, 129, 0.6)',
+          color: 'var(--text-secondary)',
           fontSize: '0.7rem',
           letterSpacing: '0.05em',
           textTransform: 'uppercase'
